@@ -1,5 +1,6 @@
 function [lat_deg, long_deg, height_m] = First_Epoch_pos_from_centre(time_index, time, ...
-    r_cap_e_ea_old, v_cap_e_ea_old, ref_vec)
+    r_cap_e_ea_old, v_cap_e_ea_old)
+
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 % get position and velocity from previous position
@@ -23,6 +24,7 @@ for index = 1: numel(sat_index)
     [r_cap_e_esati_old(index, :) , v_cap_e_esati_old(index, :)]= ...
         Satellite_position_and_velocity(time, sat_index(index));
 end
+
 % r_cap_e_esati_old is a 8x3 matrix
 
 
@@ -36,10 +38,11 @@ rho_obs_sati_a= data(time_index+1, 2:end)';
 
 
 i= 0;
+printi= 20;
 while 1>0
     i= i+1;
     
-    
+    % disp(r_cap_e_ea_old)
     %    Where i is the index for satellite
     % r_cap_e_asati_old = r_cap_e_esati_old -  r_cap_e_ea_old
     
@@ -97,19 +100,28 @@ while 1>0
     
     x_cap_new= x_cap_old + C;
     
-    fprintf("%d", i)
-    fprintf("%0.2f\n", x_cap_new(1:3, 1) )
-    % if all( (x_cap_new(1:3, 1)- ref_vec ) < 10)
-    %     break
+    result1 = (x_cap_new(1, 1)- x_cap_old(1, 1)) > .010;
+    result2 = (x_cap_new(2, 1)- x_cap_old(2, 1)) > .010;
+    result3 = (x_cap_new(3, 1)- x_cap_old(3, 1)) > .010;
+
+    % if i < printi
+    % 
+    %     fprintf("%d %d %d\n", result1, result2, result3)
     % end
-    
+
+
+    if result1==0 && result2==0 && result3==0
+        break
+    end
+
+
+
+
     r_cap_e_ea_old= x_cap_new(1:3, 1);
     delta_rho_a_c_old= x_cap_new(4, 1);
 
     
-    if i ==4
-        break
-    end
+    
 
 
 end
@@ -119,5 +131,4 @@ end
 lat_deg= rad_to_deg*lat_rad;
 
 long_deg= rad_to_deg* long_rad;
-
 
