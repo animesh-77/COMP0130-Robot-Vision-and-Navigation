@@ -1,5 +1,5 @@
-function [lat_deg, long_deg, height_m] = First_Epoch_pos_from_centre(time_index, time, ...
-    r_cap_e_ea_old, ~)
+function [x_cap_new] = First_Epoch_pos_from_centre(time_index, time, ...
+    r_cap_e_ea_old, ~, filename)
 
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
@@ -10,12 +10,15 @@ Define_Constants
 
 delta_rho_a_c_old= 1;
 
+data = readmatrix(filename);
+
+
 %    Where i = index for satellite
 % r_cap_e_esati_old = position for satellite i
 %    Where i = index for satellite
 % v_cap_e_esati_old = velocity for satellite i
 
-sat_index= [2 17 18 22 23 26 27 28];
+sat_index= data(1, 2:end);
 
 r_cap_e_esati_old= zeros(numel(sat_index), 3);
 v_cap_e_esati_old= zeros(numel(sat_index), 3);
@@ -30,15 +33,13 @@ end
 
 % rho_obs_sati_a where i is index of satellite
     
-filename = 'Workshop1_Pseudo_ranges.csv';
 % Read the data using csvread
-data = readmatrix(filename);
+
 rho_obs_sati_a= data(time_index+1, 2:end)';
 % only read the row at time step required
 
 
 i= 0;
-printi= 20;
 while 1>0
     i= i+1;
     
@@ -92,9 +93,9 @@ while 1>0
     % 
     H_e_G= horzcat(-u_e_asati, ones(numel(sat_index), 1));
     
-    A= inv(H_e_G'* H_e_G);
+    A= H_e_G'* H_e_G;
     
-    B= A* H_e_G';
+    B= inv(A)* H_e_G';
     
     C= B* delta_z_old;
     
@@ -126,9 +127,6 @@ while 1>0
 
 end
 
-[lat_rad, long_rad, height_m]= pv_ECEF_to_NED(x_cap_new(1:3), [0 0 0]');
 
-lat_deg= rad_to_deg*lat_rad;
 
-long_deg= rad_to_deg* long_rad;
 
