@@ -1,5 +1,5 @@
 function [lat_deg, long_deg, height_m] = First_Epoch_pos_from_centre(time_index, time, ...
-    r_cap_e_ea_old, v_cap_e_ea_old)
+    r_cap_e_ea_old, ~)
 
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
