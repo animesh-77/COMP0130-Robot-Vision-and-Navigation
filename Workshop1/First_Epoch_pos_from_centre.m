@@ -41,7 +41,7 @@ rho_obs_sati_a= data(time_index+1, 2:end)';
 
 i= 0;
 while 1>0
-    i= i+1;
+    
     
     % disp(r_cap_e_ea_old)
     %    Where i is the index for satellite
@@ -81,7 +81,8 @@ while 1>0
     
     x_cap_old= [r_cap_e_ea_old; delta_rho_a_c_old];
     
-    
+    % fprintf('iteration %d x %-0.3f %-0.3f %-0.3f %-0.3f\n', i, x_cap_old);
+
     
     
     % delta_z_old
@@ -121,7 +122,7 @@ while 1>0
     r_cap_e_ea_old= x_cap_new(1:3, 1);
     delta_rho_a_c_old= x_cap_new(4, 1);
 
-    
+    i= i+1;
     
 
 
