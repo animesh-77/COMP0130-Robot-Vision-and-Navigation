@@ -1,9 +1,21 @@
 function [x_cap_new] = First_Epoch_pos_from_centre(time_index, time, ...
     r_cap_e_ea_old, ~, filename)
+% 
+% 
+% Function to get single epoch position solution without any priors
+% Iterates until position solution does not improve by more than 10cm in any axis
+% 
+% Inputs :
+% time_index : index of time in the pseudo_range.csv file (1, 1)
+% time : time in seconds (1, 1)
+% r_cap_e_ea_old : prior position of the antenna. Can also be centre of earth (3, 1)  
+% ~ : velocity vector not required . (3, 1)
+% filename : name of the pseudo_range.csv file
+% 
+% Returns
+% x_cap_new : position of the antenna
 
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
-% get position and velocity from previous position
+
 
 
 Define_Constants
@@ -66,17 +78,10 @@ while 1>0
     C_I_e= [0 omega_ie/c 0; -omega_ie/c 0 0; 0 0 0];
     
     for index = 1: numel(sat_index)
-    
-        A= (C_I_e* r_cap_e_asati_old_mag(index, 1)+ diag(ones(1, 3)))* r_cap_e_esati_old(index, :)';
-        
-        B= A- r_cap_e_ea_old;
-        
-        C= sqrt(B'*B);
-    
-        r_cap_e_asati_corr_old(index, 1)= C;
-    
-        u_e_asati(index, :) = B'/C;
-        
+
+        [r_cap_e_asati_corr_old(index, 1), u_e_asati(index, :)]= ...
+            line_of_sight_vector(r_cap_e_esati_old(index, :)', r_cap_e_ea_old);
+
     end
     
     x_cap_old= [r_cap_e_ea_old; delta_rho_a_c_old];
