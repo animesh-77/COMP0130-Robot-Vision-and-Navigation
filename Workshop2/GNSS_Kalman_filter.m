@@ -40,12 +40,8 @@ c = 299792458; % Speed of light in m/s
 trans_mat_last = eye(8, 8);
 
 
-% trans_mat_last(1:3, 1:3)= eye(3);
-% trans_mat_last(4:6, 4:6)= eye(3);
 trans_mat_last(1:3, 4:6)= eye(3)* tau_s;
-% trans_mat_last(7, 7)= 1;
 trans_mat_last(7, 8)= tau_s;
-% trans_mat_last(8, 8)= 1;
 
 
 
