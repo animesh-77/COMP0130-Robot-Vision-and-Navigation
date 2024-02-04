@@ -5,6 +5,44 @@ function [corr_DR_speed_N_d, corr_DR_speed_E_d, corr_DR_lat, corr_DR_long,...
     DR_lat_rad, DR_long_rad, DR_vel_N_d, DR_vel_E_d,...
     prop_time, S_DR, GNSS_pos_sd, GNSS_vel_sd)
 
+% Function to integrate GNSS and DR solutions derived independently
+% 
+% Inputs : 
+% est_state_new : estimated state vector
+% est_state_err_cov_mat_last : estimated state error covariance matrix
+% 
+% GNSS_lat_rad : GNSS derived latitude in radians
+% GNSS_long_rad : GNSS derived longitude in radians
+% GNSS_heights : GNSS derived height in m
+% GNSS_vel_N : GNSS derived velocity in N direction
+% GNSS_vel_E : GNSS derived velocity in E direction
+% 
+% DR_lat_rad : DR latitude solution in radians
+% DR_long_rad : DR longitude solution in radians
+% DR_vel_N_d : DR velocity (damped) in N direction
+% DR_vel_E_d : DR velocity (damped) in E direction
+% 
+% prop_time : propogation time (default value in 0.5 s)
+% S_DR : Power spectral density (default value in 0.2)
+% GNSS_pos_sd : sd of GNSS position solution
+% GNSS_vel_sd : sd of GNSS velocity solution
+% 
+% 
+% 
+% Outputs :
+% corr_DR_speed_N_d : Corrected DR speed in N direction
+% corr_DR_speed_E_d : Corrected DR speed in E direction
+% corr_DR_lat : corrected DR latitude in radians
+% corr_DR_long : corrected DR longitude in radians
+% est_state_new : estimated state vector for current epoch
+% est_state_err_cov_mat_last : estimated state error covariance matrix for currepnt epoch
+% 
+% 
+% 
+
+
+
+
 
 if ~exist('prop_time','var')
       prop_time = 0.5;
