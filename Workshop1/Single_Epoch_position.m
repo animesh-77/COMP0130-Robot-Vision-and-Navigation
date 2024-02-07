@@ -107,9 +107,9 @@ while 1>0
     
     x_cap_new= x_cap_old + C;
     
-    result1 = (x_cap_new(1, 1)- x_cap_old(1, 1)) > .010;
-    result2 = (x_cap_new(2, 1)- x_cap_old(2, 1)) > .010;
-    result3 = (x_cap_new(3, 1)- x_cap_old(3, 1)) > .010;
+    result1 = abs((x_cap_new(1, 1)- x_cap_old(1, 1))) > .010;
+    result2 = abs((x_cap_new(2, 1)- x_cap_old(2, 1))) > .010;
+    result3 = abs((x_cap_new(3, 1)- x_cap_old(3, 1))) > .010;
 
     % if i < printi
     % 
