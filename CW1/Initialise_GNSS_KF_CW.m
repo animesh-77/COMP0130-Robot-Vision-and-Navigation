@@ -16,12 +16,11 @@ function [x_est,P_matrix] = Initialise_GNSS_KF_CW
 % License: BSD; see license.txt for details
 
 % Begins
-% 4.993025514491729  
-% 4.969273778984684
+
 % Initialise state estimates 
-x_est = [  3.996434407738776e6; -0.010423465486762e6; 4.993025514491728e6 ;...% positon
-    0.5682; 3.0250;  2.3241;...% velocity
-    0.045311157708992e6; 1.016410567630194e2]; % clock offset , clock drift
+x_est = [  3.977851131656157e+06; -1.118086981210384e+04; 4.969033742600406e+06 ;...% positon
+    0.006799278282820; 0.047183610241202;  -0.017330817394829;...% velocity
+    1.000880095199524e+04; 1.000123511027067e+02]; % clock offset , clock drift
 
 % Initialise error covariance matrix
 P_matrix =  zeros(8);
