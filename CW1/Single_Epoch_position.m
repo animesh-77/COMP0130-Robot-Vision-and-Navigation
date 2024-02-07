@@ -21,7 +21,7 @@ function [est_state] = Single_Epoch_position(time, ...
 
 Define_Constants
 
-pred_clock_offset= 50;
+pred_clock_offset= 1;
 
 % data = readmatrix(filename);
 
@@ -53,7 +53,6 @@ end
 i= 0;
 while 1>0
         
-
     %  where i is the index of the satellite
     % r_cap_e_asati_corr_old
     % 
@@ -95,9 +94,14 @@ while 1>0
     
     est_state= pred_state + C;
     
-    result1 = (est_state(1, 1)- pred_state(1, 1)) > .010;
-    result2 = (est_state(2, 1)- pred_state(2, 1)) > .010;
-    result3 = (est_state(3, 1)- pred_state(3, 1)) > .010;
+
+    x_change= abs(est_state(1)- pred_state(1));
+    y_change= abs(est_state(2)- pred_state(2));
+    z_change= abs(est_state(3)- pred_state(3));
+
+    resultx = x_change < 0.01;
+    resulty = y_change < 0.01;
+    resultz = z_change < 0.01;
 
     % if i < printi
     % 
@@ -105,9 +109,9 @@ while 1>0
     % end
 
 
-    if result1==0 && result2==0 && result3==0
+    if resultx==1 && resulty==1 && resultz==1
+    % if result4 == 1
         % [m, n] = size(est_state);
-        % fprintf('The shape of the matrix is %d x %d.\n', m, n);
         break
     end
 
