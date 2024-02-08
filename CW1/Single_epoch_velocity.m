@@ -55,7 +55,6 @@ while 1>0
         B= pred_v_ea'+ Omega_ie* est_pos_e_ea; % (3, 1)
         pred_range_rate_asati(index, 1)= pred_u_asati(index, :)*((C_I_e* A)- B);
         % predicted range rate measurement for a satellite
-
     end
     % predicted measurement innovation vector
     pred_meaus_innov= osb_range_rate_asati- pred_range_rate_asati- pred_state(4, 1);
