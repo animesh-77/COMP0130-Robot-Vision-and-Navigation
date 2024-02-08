@@ -17,7 +17,8 @@ function [est_state] = Single_Epoch_position(time, ...
 % 
 % 
 % Returns
-% est_state : position of the antenna in ECEF coordinate system
+% est_state : position of the antenna in ECEF coordinate system and clock
+% offset
 Define_Constants
 pred_clock_offset= 1;
 sat_count= numel(sat_index);
@@ -60,7 +61,7 @@ while 1>0
     resultx = x_change < 0.01;
     resulty = y_change < 0.01;
     resultz = z_change < 0.01;
-    % checking if absolute change in position in less than 10cm
+    % checking if absolute change in position in all axes is less than 10cm
     if resultx==1 && resulty==1 && resultz==1
     % If the estimated position solution has not moved by more than 10cm
     % in any axis we break out and return the current state estimates
